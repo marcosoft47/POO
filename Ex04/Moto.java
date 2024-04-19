@@ -7,6 +7,7 @@ public class Moto extends Veiculo{
     public Moto(int ano, int chassi, float preco, float SemParar, int cilindradas){
         super(ano, chassi, preco, SemParar);
         this.cilindradas = cilindradas;
+        setNome("Moto");
     }
 
     // Getters e Setters
@@ -19,14 +20,6 @@ public class Moto extends Veiculo{
 
     // Funções
     public void PagarPedagio(){
-        float saldo = this.getSemParar(); // Adicionar o valor na memória ao invés de chamar um monte de vezes
-        saldo -= 10;
-        if (saldo > 0){
-            this.setSemParar(saldo);
-            System.out.println("Dinheiro: " + saldo);
-        }
-        else{
-            System.out.println("Moto sem dinheiro suficiente!");
-        }
+        this.veiculo_pagarPedagio(10);
     }
 }

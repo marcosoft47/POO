@@ -19,14 +19,6 @@ public class Carro extends Veiculo{
 
     // Funções
     public void PagarPedagio(){
-        float saldo = this.getSemParar(); // Adicionar o valor na memória ao invés de chamar um monte de vezes
-        saldo -= 20;
-        if (saldo > 0){
-            this.setSemParar(saldo);
-            System.out.println("Dinheiro: " + saldo);
-        }
-        else{
-            System.out.println("Carro sem dinheiro suficiente!");
-        }
+        this.veiculo_pagarPedagio(20);
     }
 }

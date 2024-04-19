@@ -30,14 +30,6 @@ public class Caminhao extends Veiculo{
 
     // Funções
     public void PagarPedagio(){
-        float saldo = this.getSemParar(); // Adicionar o valor na memória ao invés de chamar um monte de vezes
-        saldo -= 40;
-        if (saldo > 0){
-            this.setSemParar(saldo);
-            System.out.println("Dinheiro: " + saldo);
-        }
-        else{
-            System.out.println("Caminhão sem dinheiro suficiente!");
-        }
+        veiculo_pagarPedagio(40);
     }
 }
