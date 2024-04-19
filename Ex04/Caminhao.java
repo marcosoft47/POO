@@ -7,7 +7,7 @@ public class Caminhao extends Veiculo{
     public Caminhao( int ano, int chassi, float preco, float semParar, int capacidadeTotal){
         super(ano, chassi, preco, semParar);
         this.capacidadeTotal = capacidadeTotal;
-        setCapacidadeAtual(0); // ad hoc
+        this.setCapacidadeAtual(0); // ad hoc
     }
     
     // Getters e Setters

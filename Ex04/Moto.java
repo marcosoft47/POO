@@ -7,7 +7,7 @@ public class Moto extends Veiculo{
     public Moto(int ano, int chassi, float preco, float SemParar, int cilindradas){
         super(ano, chassi, preco, SemParar);
         this.cilindradas = cilindradas;
-        setNome("Moto");
+        this.setNome("Moto");
     }
 
     // Getters e Setters

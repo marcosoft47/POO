@@ -7,6 +7,7 @@ public class Carro extends Veiculo{
     public Carro(int ano, int chassi, float preco, float semParar, boolean automatico){
         super(ano, chassi, preco, semParar);
         this.automatico = automatico;
+        this.setNome("Carro");
     }
 
     // Getters e Setters
