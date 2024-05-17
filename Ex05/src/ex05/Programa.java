@@ -3,7 +3,6 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package ex05;
-import java.util.ArrayList;
 
 /**
  *
@@ -14,15 +13,57 @@ public class Programa extends javax.swing.JFrame {
     /**
      * Creates new form Program
      */
-    
-        private ArrayList<Integer> num;
-        private ArrayList<Character> op;
+        // Professor antes que voce reclame eu to acostumado a programar com
+        // coisas em ingles e as vezes portugues me perdoe eu realmente fiz
+        // esse codigo e nao copiei da internet
+        private int resultado = 0;
+        private boolean hasPressedEqual = false;
+        private boolean hasPressedNumber = false;
+        private char lastOp = '0';
     public Programa() {
         initComponents();
-        num = new ArrayList<>(10);
-        op = new ArrayList<>(5);
     }
-
+    
+    private void opPress(char operator){
+            int num = getDisplay();
+            clearDisplay();
+            if (this.lastOp == '0'){
+                this.resultado = num;
+            }else{
+                this.resultado = calculate(resultado, operator, num);
+            }
+            this.lastOp = operator;
+            this.hasPressedNumber = false;
+   
+        this.hasPressedEqual = false;
+    }
+    private int calculate(int n1, char operator, int n2){
+        if (operator == '/')
+            return n1 / n2;
+        if (operator == '-')
+            return n1 - n2;
+        if (operator == '+')
+            return n1 + n2;
+        if (operator == '*')
+            return n1 * n2;
+        else
+            return 0;
+    }
+    
+    private void numPress(int number){
+        if (hasPressedEqual){
+            clearDisplay();
+            this.hasPressedEqual = false;
+        }
+        display.setText(display.getText() + String.valueOf(number));
+        this.hasPressedNumber = true;
+    }
+    private void clearDisplay(){
+        display.setText("");
+    }
+    private int getDisplay(){
+        return Integer.valueOf(display.getText());
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -32,25 +73,46 @@ public class Programa extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        filler2 = new javax.swing.Box.Filler(new java.awt.Dimension(10, 0), new java.awt.Dimension(10, 0), new java.awt.Dimension(10, 32767));
+        display = new javax.swing.JLabel();
+        jPanel1 = new javax.swing.JPanel();
         b7 = new javax.swing.JButton();
         b8 = new javax.swing.JButton();
         b9 = new javax.swing.JButton();
-        bdiv = new javax.swing.JButton();
+        badd = new javax.swing.JButton();
         b4 = new javax.swing.JButton();
         b5 = new javax.swing.JButton();
         b6 = new javax.swing.JButton();
-        bmul = new javax.swing.JButton();
+        bmin = new javax.swing.JButton();
         b1 = new javax.swing.JButton();
         b2 = new javax.swing.JButton();
         b3 = new javax.swing.JButton();
-        bmin = new javax.swing.JButton();
+        bmul = new javax.swing.JButton();
+        bdel = new javax.swing.JButton();
         b0 = new javax.swing.JButton();
         bequ = new javax.swing.JButton();
-        badd = new javax.swing.JButton();
-        display = new javax.swing.JLabel();
-        bdel = new javax.swing.JButton();
+        bdiv = new javax.swing.JButton();
+        filler1 = new javax.swing.Box.Filler(new java.awt.Dimension(10, 0), new java.awt.Dimension(10, 0), new java.awt.Dimension(10, 32767));
+        filler3 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 10), new java.awt.Dimension(0, 10), new java.awt.Dimension(32767, 10));
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("CAL_CU");
+        setForeground(new java.awt.Color(153, 0, 153));
+        getContentPane().setLayout(new java.awt.BorderLayout(0, 10));
+        getContentPane().add(filler2, java.awt.BorderLayout.EAST);
+
+        display.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
+        display.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        display.setToolTipText("");
+        display.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        display.setFocusable(false);
+        display.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
+        display.setMaximumSize(new java.awt.Dimension(100, 10));
+        display.setMinimumSize(new java.awt.Dimension(100, 10));
+        display.setPreferredSize(new java.awt.Dimension(50, 100));
+        getContentPane().add(display, java.awt.BorderLayout.NORTH);
+
+        jPanel1.setLayout(new java.awt.GridLayout(0, 4, 5, 5));
 
         b7.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
         b7.setText("7");
@@ -59,6 +121,7 @@ public class Programa extends javax.swing.JFrame {
                 b7ActionPerformed(evt);
             }
         });
+        jPanel1.add(b7);
 
         b8.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
         b8.setText("8");
@@ -67,6 +130,7 @@ public class Programa extends javax.swing.JFrame {
                 b8ActionPerformed(evt);
             }
         });
+        jPanel1.add(b8);
 
         b9.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
         b9.setText("9");
@@ -75,94 +139,7 @@ public class Programa extends javax.swing.JFrame {
                 b9ActionPerformed(evt);
             }
         });
-
-        bdiv.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
-        bdiv.setText("/");
-        bdiv.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                bdivActionPerformed(evt);
-            }
-        });
-
-        b4.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
-        b4.setText("4");
-        b4.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                b4ActionPerformed(evt);
-            }
-        });
-
-        b5.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
-        b5.setText("5");
-        b5.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                b5ActionPerformed(evt);
-            }
-        });
-
-        b6.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
-        b6.setText("6");
-        b6.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                b6ActionPerformed(evt);
-            }
-        });
-
-        bmul.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
-        bmul.setText("*");
-        bmul.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                bmulActionPerformed(evt);
-            }
-        });
-
-        b1.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
-        b1.setLabel("1");
-        b1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                b1ActionPerformed(evt);
-            }
-        });
-
-        b2.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
-        b2.setText("2");
-        b2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                b2ActionPerformed(evt);
-            }
-        });
-
-        b3.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
-        b3.setText("3");
-        b3.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                b3ActionPerformed(evt);
-            }
-        });
-
-        bmin.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
-        bmin.setText("-");
-        bmin.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                bminActionPerformed(evt);
-            }
-        });
-
-        b0.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
-        b0.setText("0");
-        b0.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                b0ActionPerformed(evt);
-            }
-        });
-
-        bequ.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
-        bequ.setText("=");
-        bequ.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                bequActionPerformed(evt);
-            }
-        });
+        jPanel1.add(b9);
 
         badd.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
         badd.setText("+");
@@ -171,9 +148,79 @@ public class Programa extends javax.swing.JFrame {
                 baddActionPerformed(evt);
             }
         });
+        jPanel1.add(badd);
 
-        display.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
-        display.setText(" ");
+        b4.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
+        b4.setText("4");
+        b4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                b4ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(b4);
+
+        b5.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
+        b5.setText("5");
+        b5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                b5ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(b5);
+
+        b6.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
+        b6.setText("6");
+        b6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                b6ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(b6);
+
+        bmin.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
+        bmin.setText("-");
+        bmin.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bminActionPerformed(evt);
+            }
+        });
+        jPanel1.add(bmin);
+
+        b1.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
+        b1.setLabel("1");
+        b1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                b1ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(b1);
+
+        b2.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
+        b2.setText("2");
+        b2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                b2ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(b2);
+
+        b3.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
+        b3.setText("3");
+        b3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                b3ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(b3);
+
+        bmul.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
+        bmul.setText("*");
+        bmul.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bmulActionPerformed(evt);
+            }
+        });
+        jPanel1.add(bmul);
 
         bdel.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
         bdel.setText("D");
@@ -182,102 +229,52 @@ public class Programa extends javax.swing.JFrame {
                 bdelActionPerformed(evt);
             }
         });
+        jPanel1.add(bdel);
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(62, 62, 62)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(b7, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(b8, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(b9, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(bdiv, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(layout.createSequentialGroup()
-                            .addComponent(b1, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(18, 18, 18)
-                            .addComponent(b2, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(18, 18, 18)
-                            .addComponent(b3, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(18, 18, 18)
-                            .addComponent(bmin, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(layout.createSequentialGroup()
-                            .addComponent(b4, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(18, 18, 18)
-                            .addComponent(b5, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(18, 18, 18)
-                            .addComponent(b6, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(18, 18, 18)
-                            .addComponent(bmul, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(layout.createSequentialGroup()
-                            .addComponent(bdel, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(18, 18, 18)
-                            .addComponent(b0, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(18, 18, 18)
-                            .addComponent(bequ, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(18, 18, 18)
-                            .addComponent(badd, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(72, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(display, javax.swing.GroupLayout.PREFERRED_SIZE, 209, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(125, 125, 125))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(44, 44, 44)
-                .addComponent(display, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(43, 43, 43)
-                        .addComponent(bdiv, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(b7, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(b8, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(b9, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(b4, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(bmul, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(b6, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(b5, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(b1, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(bmin, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(b3, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(b2, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(bequ, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(b0, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(badd, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(bdel, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(70, Short.MAX_VALUE))
-        );
+        b0.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
+        b0.setText("0");
+        b0.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                b0ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(b0);
+
+        bequ.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
+        bequ.setText("=");
+        bequ.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bequActionPerformed(evt);
+            }
+        });
+        jPanel1.add(bequ);
+
+        bdiv.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
+        bdiv.setText("/");
+        bdiv.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bdivActionPerformed(evt);
+            }
+        });
+        jPanel1.add(bdiv);
+
+        getContentPane().add(jPanel1, java.awt.BorderLayout.CENTER);
+        getContentPane().add(filler1, java.awt.BorderLayout.WEST);
+        getContentPane().add(filler3, java.awt.BorderLayout.PAGE_END);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void b7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_b7ActionPerformed
-        display.setText(display.getText() + "7");
+        numPress(7);
     }//GEN-LAST:event_b7ActionPerformed
 
     private void b8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_b8ActionPerformed
-        display.setText(display.getText() + "8");
+        numPress(8);
     }//GEN-LAST:event_b8ActionPerformed
 
     private void b9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_b9ActionPerformed
-        display.setText(display.getText() + "9");
+        numPress(9);
     }//GEN-LAST:event_b9ActionPerformed
 
     private void bdivActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bdivActionPerformed
@@ -285,15 +282,15 @@ public class Programa extends javax.swing.JFrame {
     }//GEN-LAST:event_bdivActionPerformed
 
     private void b4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_b4ActionPerformed
-        display.setText(display.getText() + "4");
+        numPress(4);
     }//GEN-LAST:event_b4ActionPerformed
 
     private void b5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_b5ActionPerformed
-        display.setText(display.getText() + "5");
+        numPress(5);
     }//GEN-LAST:event_b5ActionPerformed
 
     private void b6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_b6ActionPerformed
-        display.setText(display.getText() + "6");
+        numPress(6);
     }//GEN-LAST:event_b6ActionPerformed
 
     private void bmulActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bmulActionPerformed
@@ -301,15 +298,15 @@ public class Programa extends javax.swing.JFrame {
     }//GEN-LAST:event_bmulActionPerformed
 
     private void b1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_b1ActionPerformed
-        display.setText(display.getText() + "1");
+        numPress(1);
     }//GEN-LAST:event_b1ActionPerformed
 
     private void b2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_b2ActionPerformed
-        display.setText(display.getText() + "2");
+        numPress(2);
     }//GEN-LAST:event_b2ActionPerformed
 
     private void b3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_b3ActionPerformed
-        display.setText(display.getText() + "3");
+        numPress(3);
     }//GEN-LAST:event_b3ActionPerformed
 
     private void bminActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bminActionPerformed
@@ -317,23 +314,17 @@ public class Programa extends javax.swing.JFrame {
     }//GEN-LAST:event_bminActionPerformed
 
     private void b0ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_b0ActionPerformed
-       display.setText(display.getText() + "0");
+       numPress(0);
     }//GEN-LAST:event_b0ActionPerformed
 
     private void bequActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bequActionPerformed
-
-        int resultado = 0;
-        //while (!num.isEmpty() || !op.isEmpty()){
-            if (op.get(0).equals('/'))
-                resultado = num.get(0) / num.get(1);
-            if (op.get(0).equals('-'))
-                resultado = num.get(0) - num.get(1);
-            if (op.get(0).equals('+'))
-                resultado = num.get(0) + num.get(1);
-            if (op.get(0).equals('*'))
-                resultado = num.get(0) * num.get(1);
-        //}
-        display.setText(String.valueOf(resultado));        
+        if ((!this.hasPressedEqual) || this.hasPressedNumber){
+            this.resultado = calculate(this.resultado, this.lastOp, getDisplay());
+            display.setText(String.valueOf(resultado));
+            this.hasPressedEqual = true;
+            this.hasPressedNumber = false;
+            this.lastOp = '0';
+        }
     }//GEN-LAST:event_bequActionPerformed
 
     private void baddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_baddActionPerformed
@@ -341,16 +332,13 @@ public class Programa extends javax.swing.JFrame {
     }//GEN-LAST:event_baddActionPerformed
 
     private void bdelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bdelActionPerformed
-        display.setText("");
-    }//GEN-LAST:event_bdelActionPerformed
-    private void clearDisplay(){
-        display.setText("");
-    }
-    private void opPress(char operator){
-        num.add(Integer.valueOf(display.getText()));
-        op.add(operator);
         clearDisplay();
-    }
+        this.lastOp = '0';
+        this.resultado = 0;
+        this.hasPressedNumber = false;
+        this.hasPressedEqual = false;
+    }//GEN-LAST:event_bdelActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -381,7 +369,9 @@ public class Programa extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Programa().setVisible(true);
+                Programa a = new Programa();
+                a.setLocationRelativeTo(null);
+                a.setVisible(true);
             }
         });
     }
@@ -404,5 +394,9 @@ public class Programa extends javax.swing.JFrame {
     private javax.swing.JButton bmin;
     private javax.swing.JButton bmul;
     private javax.swing.JLabel display;
+    private javax.swing.Box.Filler filler1;
+    private javax.swing.Box.Filler filler2;
+    private javax.swing.Box.Filler filler3;
+    private javax.swing.JPanel jPanel1;
     // End of variables declaration//GEN-END:variables
 }
